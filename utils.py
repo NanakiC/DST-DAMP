@@ -5,9 +5,6 @@ from torch.utils.data import Dataset, DataLoader, TensorDataset
 from sklearn.preprocessing import StandardScaler
 
 class StandardScaler:
-    """
-    Standard the input
-    """
 
     def __init__(self, mean, std):
         self.mean = mean
@@ -20,14 +17,10 @@ class StandardScaler:
         return (data * self.std) + self.mean
 
 def sample_mask(shape, p, p_noise, min_seq, max_seq, rng, pattern="point"):
-    """
-    Simplified placeholder for the sample_mask function.
-    Creates a boolean mask where True indicates a value to be masked (made missing).
-    """
-    # print(f"sample_mask called with shape: {shape}, p: {p}, p_noise: {p_noise}, pattern: {pattern}")
+
+
     if pattern == "block":
-        # Simplified block missing: choose some sequences to mask entirely
-        # This is a very naive block implementation
+
         mask = np.zeros(shape, dtype=bool)
         num_nodes, num_timesteps, num_features = shape
         for node_idx in range(num_nodes):
@@ -137,12 +130,7 @@ def masked_mape(preds, labels, null_val=np.nan):
     return torch.mean(loss)
 
 def get_lap_pos_enc(A,d_model):
-    '''
 
-    :param adj_mx:  (N,N)
-    :num_of_vertices: N
-    :return:
-        '''
     num_nodes=A.shape[0]
     N = np.diag(1.0/np.sum(A, axis=1))
 #     L = np.dot(np.dot(N, A),N)
@@ -153,12 +141,7 @@ def get_lap_pos_enc(A,d_model):
     lap_pos_enc=EigVec[:,1:d_model+1]
     return lap_pos_enc 
 def test_error(y_predict, y_test):
-    """
-    Calculates MAE, RMSE, R2.
-    :param y_test:
-    :param y_predict.
-    :return:
-    """
+
     err = y_predict - y_test
     MAE = np.mean(np.abs(err[~np.isnan(err)]))
     
